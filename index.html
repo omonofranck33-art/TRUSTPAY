@@ -4,8 +4,8 @@
 <head>
   <meta charset="UTF-8"> <!-- Accepte les accents : é, è, à… -->
   <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Rend la page adaptée au téléphone -->
-  <title>TrustPay – Votre bouclier anti-arnaque</title> <!-- Titre affiché dans l'onglet -->
-  <meta name="description" content="TrustPay bloque votre argent jusqu'à la livraison et vérifie les vendeurs.">
+  <title>TrustPay – Stop aux arnaques en ligne</title> <!-- Titre affiché dans l'onglet -->
+  <meta name="description" content="Vérifiez un vendeur avant de payer, repérez les messages d'arnaque et signalez les arnaqueurs. Gratuit.">
 
   <!-- Polices Google : Barlow Condensed (titres, proche de l'affiche) + Manrope (texte) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,6 +14,7 @@
   <style>
     /* ===== 1. VARIABLES : les couleurs du logo, définies une seule fois ===== */
     :root {
+      color-scheme: dark;
       --noir: #050505;            /* fond principal */
       --nuit: #12090a;            /* fond des panneaux */
       --rouge: #ff2b2b;           /* rouge néon du logo */
@@ -52,15 +53,8 @@
     nav { display: flex; gap: 1.4rem; font-weight: 600; font-size: .95rem; }
     nav a { text-decoration: none; color: var(--gris); }
     nav a:hover { color: var(--blanc); }
-    .etat { font-size: .8rem; padding: .3rem .8rem; border-radius: 999px; border: 1px solid var(--gris); color: var(--gris); }
-    .etat.ok { border-color: var(--vert); color: var(--vert); }
 
-    /* ===== 4. HÉRO (première chose qu'on voit) ===== */
-    .hero { display: grid; grid-template-columns: 1.2fr .8fr; gap: 3rem; align-items: center; padding: 4.5rem 0 3.5rem; }
-    .hero h1 { font-size: clamp(3rem, 8vw, 5.6rem); font-weight: 700; }
-    .hero h1 span { display: block; color: var(--rouge); text-shadow: 0 0 28px rgba(255,43,43,.6); }
-    .hero p { max-width: 46ch; margin-top: 1.2rem; color: var(--gris); font-size: 1.1rem; }
-    .actions { display: flex; flex-wrap: wrap; gap: .9rem; margin-top: 2rem; }
+    /* ===== 4. BOUTONS ===== */
     .bouton {
       display: inline-block; padding: .85rem 1.5rem; border-radius: 12px; border: 0; cursor: pointer;
       font: 700 1rem "Manrope"; text-decoration: none; color: var(--blanc);
@@ -69,6 +63,15 @@
     }
     .bouton:hover { filter: brightness(1.12); }
     .bouton.contour { background: transparent; border: 1.5px solid var(--rouge); box-shadow: none; }
+    .bouton.petit { padding: .55rem 1.1rem; font-size: .9rem; }
+    .bouton:disabled { opacity: .6; cursor: wait; }
+
+    /* ===== 5. HÉRO (première chose qu'on voit) ===== */
+    .hero { display: grid; grid-template-columns: 1.2fr .8fr; gap: 3rem; align-items: center; padding: 4.5rem 0 3.5rem; }
+    .hero h1 { font-size: clamp(3rem, 8vw, 5.6rem); font-weight: 700; }
+    .hero h1 span { display: block; color: var(--rouge); text-shadow: 0 0 28px rgba(255,43,43,.6); }
+    .hero p { max-width: 46ch; margin-top: 1.2rem; color: var(--gris); font-size: 1.1rem; }
+    .actions { display: flex; flex-wrap: wrap; gap: .9rem; margin-top: 2rem; }
     /* Le logo respire doucement : c'est LA seule animation automatique de la page */
     .logo-hero { width: min(340px, 80%); margin-inline: auto; display: block; border-radius: 34px;
                  animation: lueur 3.2s ease-in-out infinite; }
@@ -77,7 +80,7 @@
       50%      { box-shadow: 0 0 70px rgba(255,43,43,.75); }
     }
 
-    /* ===== 5. LES 3 PILIERS (bande, pas trois cartes identiques) ===== */
+    /* ===== 6. LES 3 PILIERS (bande, pas trois cartes identiques) ===== */
     .piliers { display: grid; grid-template-columns: repeat(3, 1fr); border-block: 1px solid rgba(255,43,43,.3); }
     .pilier { padding: 2rem 1.6rem; }
     .pilier + .pilier { border-left: 1px solid rgba(255,43,43,.3); } /* séparateur vertical */
@@ -85,7 +88,7 @@
     .pilier h3 { font-size: 1.6rem; }
     .pilier p { color: var(--gris); font-size: .95rem; margin-top: .4rem; }
 
-    /* ===== 6. ZONE D'ESSAI ===== */
+    /* ===== 7. SECTIONS, PANNEAUX ET FORMULAIRES ===== */
     section { padding: 4rem 0; }
     section > .conteneur > h2 { font-size: clamp(2.2rem, 5vw, 3.2rem); }
     .intro { color: var(--gris); max-width: 60ch; margin: .6rem 0 2.2rem; }
@@ -97,11 +100,15 @@
     .panneau h3 { font-size: 1.7rem; margin-bottom: .3rem; }
     .panneau > p { color: var(--gris); font-size: .92rem; margin-bottom: 1rem; }
     label { display: block; font-weight: 600; font-size: .88rem; margin-bottom: .35rem; }
-    input, textarea {
+    label small { font-weight: 400; color: var(--gris); }
+    input, textarea, select {
       width: 100%; padding: .75rem .9rem; border-radius: 10px; margin-bottom: .9rem;
       background: #000; color: var(--blanc); border: 1px solid #4a2325; font: inherit;
     }
     textarea { min-height: 110px; resize: vertical; }
+    .choix { display: flex; gap: 1.2rem; margin-bottom: .9rem; }
+    .choix label { display: flex; align-items: center; gap: .45rem; font-weight: 600; margin: 0; }
+    .choix input { width: auto; margin: 0; accent-color: var(--rouge); }
     .resultat { margin-top: 1rem; padding: .9rem 1rem; border-radius: 10px; border-left: 4px solid var(--gris);
                 background: rgba(255,255,255,.04); font-size: .92rem; }
     .resultat.bon    { border-color: var(--vert);   }
@@ -110,24 +117,36 @@
     .resultat ul { margin: .5rem 0 0 1.1rem; color: var(--gris); }
     .resultat:empty { display: none; }
 
-    /* Étapes du paiement bloqué (ici c'est vraiment une suite : 1 → 4) */
-    ol.etapes { list-style: none; margin-bottom: 1rem; }
-    ol.etapes li { padding: .55rem .8rem; margin-bottom: .4rem; border-radius: 8px; color: var(--gris);
-                   border: 1px dashed #4a2325; counter-increment: e; }
-    ol.etapes li::before { content: counter(e) ". "; font-weight: 700; }
-    ol.etapes { counter-reset: e; }
-    ol.etapes li.fait   { color: var(--blanc); border: 1px solid var(--vert); }
-    ol.etapes li.actuel { color: var(--blanc); border: 1px solid var(--rouge); box-shadow: 0 0 14px rgba(255,43,43,.4); }
+    /* Section « Signaler » : formulaire large sur deux colonnes */
+    .signaler { display: grid; grid-template-columns: .8fr 1.2fr; gap: 2.5rem; align-items: start; }
+    .signaler .colonnes { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1rem; }
 
-    /* ===== 7. CONTACT + PIED DE PAGE ===== */
+    /* Section « Faire un don » */
+    .dons { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; max-width: 640px; }
+    .don { border-left: 5px solid var(--gris); }
+    .don.momo { border-left-color: #ffcc00; }   /* jaune MTN */
+    .don.om   { border-left-color: #ff7900; }   /* orange Orange */
+    .don .numero { font: 700 2.2rem "Barlow Condensed"; letter-spacing: .04em; margin: .2rem 0 1rem; color: var(--blanc); }
+
+    /* ===== 8. FENÊTRE « CRÉER UN COMPTE » ===== */
+    dialog { margin: auto; width: min(440px, 100% - 2rem); padding: 1.8rem; border-radius: 20px; color: var(--blanc);
+             background: var(--nuit); border: 1px solid var(--rouge); box-shadow: 0 0 50px rgba(255,43,43,.35); }
+    dialog::backdrop { background: rgba(0,0,0,.75); }   /* fond assombri derrière la fenêtre */
+    dialog h2 { font-size: 2rem; margin-bottom: .3rem; }
+    dialog .intro { margin: 0 0 1.2rem; font-size: .92rem; }
+    .rangee { display: flex; gap: .8rem; flex-wrap: wrap; }
+
+    /* ===== 9. CONTACT + PIED DE PAGE ===== */
     .contact { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: center; }
     .contact img { width: 100%; max-width: 380px; border-radius: 18px; border: 1px solid rgba(255,43,43,.4); justify-self: center; }
     .contact a.tel { display: block; font: 700 1.5rem "Barlow Condensed"; margin-top: .3rem; text-decoration: none; }
     footer { padding: 1.6rem 0 2.2rem; text-align: center; color: var(--gris); font-size: .85rem; border-top: 1px solid rgba(255,43,43,.25); }
 
-    /* ===== 8. TÉLÉPHONE : on empile les colonnes ===== */
+    /* ===== 10. TÉLÉPHONE : on empile les colonnes ===== */
     @media (max-width: 760px) {
-      .hero, .contact { grid-template-columns: 1fr; text-align: center; }
+      .hero, .contact, .signaler { grid-template-columns: 1fr; text-align: center; }
+      .signaler { text-align: left; }
+      .signaler .colonnes { grid-template-columns: 1fr; }
       .hero p { margin-inline: auto; }
       .actions { justify-content: center; }
       .piliers { grid-template-columns: 1fr; }
@@ -146,11 +165,13 @@
       <a class="marque" href="#"><img src="assets/logo.jpg" alt="Logo TrustPay : un hibou avec les lettres T et P">TrustPay</a>
       <nav aria-label="Navigation principale">
         <a href="#protection">Protection</a>
-        <a href="#essayer">Essayer</a>
+        <a href="#essayer">Vérifier</a>
+        <a href="#signaler">Signaler</a>
+        <a href="#don">Faire un don</a>
         <a href="#contact">Contact</a>
       </nav>
-      <!-- Ce badge devient vert quand le serveur Java répond (voir le JavaScript en bas) -->
-      <span class="etat" id="etat-serveur" role="status">Mode démo</span>
+      <!-- Ouvre la fenêtre d'inscription (voir <dialog> plus bas et le JavaScript) -->
+      <button class="bouton petit" id="btn-compte" type="button">Créer un compte</button>
     </div>
   </header>
 
@@ -158,8 +179,8 @@
     <!-- ========== HÉRO ========== -->
     <div class="conteneur hero">
       <div>
-        <h1>Ne vous faites plus arnaquer.<span>Payez en toute confiance.</span></h1>
-        <p>TrustPay garde votre argent en sécurité jusqu'à ce que vous ayez reçu votre commande, et vous prévient quand un message ou un vendeur semble louche.</p>
+        <h1>Stop aux arnaques en ligne.<span>Vérifiez avant de payer.</span></h1>
+        <p>Entrez le numéro d'un vendeur : TrustPay vous dit s'il est certifié ou déjà signalé, et vous aide à repérer un message d'arnaque. C'est gratuit.</p>
         <div class="actions">
           <a class="bouton" href="#essayer">Vérifier un vendeur</a>
           <a class="bouton contour" href="https://wa.me/237640818025" target="_blank" rel="noopener">Écrire sur WhatsApp</a>
@@ -174,12 +195,12 @@
         <!-- Icône bouclier coché dessinée en SVG (un dessin défini par des coordonnées) -->
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path d="M8.5 12l2.5 2.5L16 9.5"/></svg>
         <h3>Vendeurs certifiés</h3>
-        <p>Chaque profil est contrôlé et noté avant de pouvoir recevoir un paiement.</p>
+        <p>Chaque profil est contrôlé et noté avant d'être certifié par TrustPay.</p>
       </div>
       <div class="pilier">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>
-        <h3>Paiement bloqué jusqu'à livraison</h3>
-        <p>Le vendeur n'est payé qu'après votre confirmation de réception.</p>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v10"/><circle cx="12" cy="17.5" r="1.2"/><path d="M4 20h16L12 4 4 20z"/></svg>
+        <h3>Signalements vérifiés</h3>
+        <p>Les arnaques signalées sont contrôlées par notre équipe avant d'avertir les autres acheteurs.</p>
       </div>
       <div class="pilier">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 17V11a6 6 0 0112 0v6l2 2H4l2-2z"/><path d="M10 21a2 2 0 004 0"/></svg>
@@ -188,17 +209,17 @@
       </div>
     </div>
 
-    <!-- ========== ZONE D'ESSAI (3 outils) ========== -->
+    <!-- ========== OUTILS : vérifier, analyser, payer ========== -->
     <section id="essayer">
       <div class="conteneur">
-        <h2>Essayez TrustPay maintenant</h2>
-        <p class="intro">Ces trois outils fonctionnent déjà. Avec le serveur Java allumé, ils utilisent la base de données ; sinon ils tournent en mode démo dans votre navigateur.</p>
+        <h2>Vérifiez avant de payer</h2>
+        <p class="intro">Deux outils pour vous protéger. Le premier appel peut prendre jusqu'à une minute, le temps que notre serveur se réveille.</p>
 
         <div class="outils">
           <!-- Outil 1 : vérifier un vendeur -->
           <div class="panneau">
             <h3>Vérifier un vendeur</h3>
-            <p>Entrez son numéro de téléphone.</p>
+            <p>Entrez son numéro, avec ou sans espaces.</p>
             <label for="contact-vendeur">Numéro du vendeur</label>
             <input id="contact-vendeur" type="tel" placeholder="+237 690 000 001" autocomplete="off">
             <button class="bouton" id="btn-verifier" type="button">Vérifier ce vendeur</button>
@@ -210,23 +231,76 @@
             <h3>Analyser un message</h3>
             <p>Collez un SMS ou un message WhatsApp reçu.</p>
             <label for="message">Message à analyser</label>
-            <textarea id="message" placeholder="Ex : Félicitations, vous avez gagné ! Envoyez vos frais de dossier d'abord."></textarea>
+            <textarea id="message" placeholder="Ex : Félicitations, vous avez gagné ! Envoyez d'abord les frais de dossier."></textarea>
             <button class="bouton" id="btn-analyser" type="button">Analyser le message</button>
             <div class="resultat" id="res-message" aria-live="polite"></div>
           </div>
 
-          <!-- Outil 3 : simulation du paiement bloqué -->
-          <div class="panneau">
-            <h3>Paiement bloqué</h3>
-            <p>Achat test : écouteurs Bluetooth, 15 000 FCFA chez Kamer Tech Store.</p>
-            <ol class="etapes" id="etapes">
-              <li>Commande créée</li>
-              <li>Paiement bloqué chez TrustPay</li>
-              <li>Le vendeur livre le colis</li>
-              <li>Vous confirmez : fonds libérés</li>
-            </ol>
-            <button class="bouton" id="btn-etape" type="button">Créer la commande</button>
-            <div class="resultat" id="res-paiement" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SIGNALER UN ARNAQUEUR ========== -->
+    <section id="signaler">
+      <div class="conteneur signaler">
+        <div>
+          <h2>Signaler un arnaqueur</h2>
+          <p class="intro">Vous avez été piégé, ou vous avez repéré un faux vendeur ? Donnez-nous son numéro. Votre signalement est d'abord lu et vérifié par l'équipe TrustPay. Il n'avertit les autres acheteurs qu'une fois confirmé.</p>
+        </div>
+        <div class="panneau">
+          <form id="form-signalement" novalidate>
+            <div class="colonnes">
+              <div>
+                <label for="sig-numero">Numéro de l'arnaqueur</label>
+                <input id="sig-numero" type="tel" placeholder="+237 6XX XXX XXX" required autocomplete="off">
+              </div>
+              <div>
+                <label for="sig-plateforme">Où cela s'est-il passé ?</label>
+                <select id="sig-plateforme" required>
+                  <option value="">Choisir…</option>
+                  <option>WhatsApp</option>
+                  <option>Facebook</option>
+                  <option>Telegram</option>
+                  <option>SMS ou appel</option>
+                  <option>Autre</option>
+                </select>
+              </div>
+            </div>
+            <label for="sig-description">Que s'est-il passé ?</label>
+            <textarea id="sig-description" placeholder="Ex : il m'a demandé 10 000 FCFA d'avance pour un téléphone, puis a bloqué mon numéro." required></textarea>
+            <div class="colonnes">
+              <div>
+                <label for="sig-montant">Somme perdue en FCFA <small>(facultatif)</small></label>
+                <input id="sig-montant" type="number" min="0" inputmode="numeric" placeholder="10000">
+              </div>
+              <div>
+                <label for="sig-contact">Votre numéro <small>(facultatif, pour vous recontacter)</small></label>
+                <input id="sig-contact" type="tel" placeholder="+237 6XX XXX XXX" autocomplete="tel">
+              </div>
+            </div>
+            <button class="bouton" id="btn-signaler" type="submit">Envoyer le signalement</button>
+            <div class="resultat" id="res-signalement" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== FAIRE UN DON ========== -->
+    <section id="don">
+      <div class="conteneur">
+        <h2>Faire un don</h2>
+        <p class="intro">TrustPay est gratuit pour tous. Si le projet vous est utile, vous pouvez le soutenir par Mobile Money. Merci !</p>
+        <div class="dons">
+          <div class="panneau don momo">
+            <h3>MTN MoMo</h3>
+            <p class="numero">680 803 841</p>
+            <!-- data-numero = le numéro brut que le bouton copie dans le presse-papiers -->
+            <button class="bouton contour petit copier" type="button" data-numero="680803841">Copier le numéro</button>
+          </div>
+          <div class="panneau don om">
+            <h3>Orange Money</h3>
+            <p class="numero">640 818 025</p>
+            <button class="bouton contour petit copier" type="button" data-numero="640818025">Copier le numéro</button>
           </div>
         </div>
       </div>
@@ -238,55 +312,94 @@
         <div>
           <h2>Une question ? Un vendeur suspect ?</h2>
           <p class="intro">Écrivez-nous sur WhatsApp, l'équipe répond rapidement.</p>
-          <a class="tel" href="https://wa.me/237621784312" target="_blank" rel="noopener">+237 621 784 312</a>
-          <a class="tel" href="https://wa.me/237680803841" target="_blank" rel="noopener">+237 680 803 841</a>
+          <a class="tel" href="https://wa.me/237640818025" target="_blank" rel="noopener">+237 640 818 025</a>
+          <a class="tel" href="https://wa.me/237658073180" target="_blank" rel="noopener">+237 658 073 180</a>
         </div>
-        <img src="assets/affiche.jpg" alt="Affiche TrustPay : votre bouclier anti-arnaque">
+        <img src="assets/stop-arnaques.jpg" alt="Stop arnaques : ensemble contre les arnaques en ligne">
       </div>
     </section>
   </main>
 
   <footer>
-    <div class="conteneur">TrustPay · Paiements sécurisés · Protection 24/7 · www.trustpay.io</div>
+    <div class="conteneur">TrustPay · Vérification des vendeurs · Signalements · Alertes arnaque · www.trustpay.io</div>
   </footer>
+
+  <!-- ========== FENÊTRE : CRÉER UN COMPTE ========== -->
+  <!-- <dialog> est une fenêtre native du navigateur : elle s'ouvre avec showModal() et se ferme avec close() -->
+  <dialog id="fenetre-compte" aria-labelledby="titre-compte">
+    <h2 id="titre-compte">Créer un compte</h2>
+    <p class="intro">Gratuit. Votre mot de passe est chiffré : personne, pas même nous, ne peut le lire.</p>
+    <form id="form-compte" novalidate>
+      <label for="cpt-nom">Nom complet</label>
+      <input id="cpt-nom" type="text" autocomplete="name" required>
+
+      <label for="cpt-tel">Numéro de téléphone</label>
+      <input id="cpt-tel" type="tel" placeholder="+237 6XX XXX XXX" autocomplete="tel" required>
+
+      <label for="cpt-mdp">Mot de passe <small>(8 caractères minimum)</small></label>
+      <input id="cpt-mdp" type="password" autocomplete="new-password" minlength="8" required>
+
+      <label for="cpt-mdp2">Répétez le mot de passe</label>
+      <input id="cpt-mdp2" type="password" autocomplete="new-password" required>
+
+      <div class="choix" role="radiogroup" aria-label="Type de compte">
+        <label><input type="radio" name="role" value="ACHETEUR" checked> J'achète</label>
+        <label><input type="radio" name="role" value="VENDEUR"> Je vends</label>
+      </div>
+
+      <div class="rangee">
+        <button class="bouton" id="btn-creer" type="submit">Créer mon compte</button>
+        <button class="bouton contour" id="btn-fermer" type="button">Fermer</button>
+      </div>
+      <div class="resultat" id="res-compte" aria-live="polite"></div>
+    </form>
+  </dialog>
 
   <script>
     /* ===================================================================
        JAVASCRIPT : rend la page vivante.
-       Principe : on lit ce que l'utilisateur écrit -> on demande au serveur
-       Java -> on affiche la réponse. Si le serveur est éteint, on utilise
-       les mêmes règles en local (mode démo).
+       Principe : on lit ce que l'utilisateur écrit -> on l'envoie au serveur Java
+       -> on affiche la réponse.
        =================================================================== */
 
-    const API = "https://trustpay-x360.onrender.com/api";   // adresse du serveur Java
-    let serveurActif = false;                   // devient true si Java répond
+    const API = "https://trustpay-x3b0.onrender.com/api";   // adresse de ton serveur Java sur Render
 
     // Raccourci : document.getElementById("x") -> $("x")
     const $ = (id) => document.getElementById(id);
 
-    // Envoie une requête au serveur ; renvoie null si le serveur est injoignable
+    const MSG_ATTENTE  = "Un instant… le premier appel peut prendre jusqu'à une minute (le serveur se réveille).";
+    const MSG_SERVEUR  = "Impossible de joindre le serveur. Attendez une minute puis réessayez.";
+    const MSG_NUMERO   = "Numéro invalide : il faut 9 chiffres, par exemple +237 690 000 001.";
+
+    /* ---------- Outils communs ---------- */
+
+    // Met TOUS les formats d'un numéro sous la même forme : +237XXXXXXXXX
+    // "+237 691 000 001", "+237691000001", "691000001" et "00237691000001" donnent le même résultat.
+    function normaliserTel(saisie) {
+      let c = saisie.replace(/\D/g, "");                         // ne garde que les chiffres
+      if (c.startsWith("00237")) c = c.slice(5);                 // 00237691... -> 691...
+      else if (c.length === 12 && c.startsWith("237")) c = c.slice(3);   // 237691... -> 691...
+      return /^[26]\d{8}$/.test(c) ? "+237" + c : null;          // 9 chiffres commençant par 6 (mobile) ou 2 (fixe)
+    }
+
+    // Envoie une requête au serveur ; renvoie null si le serveur est injoignable (attente max : 75 s)
     async function appeler(chemin, options = {}) {
+      const minuteur = new AbortController();
+      const arret = setTimeout(() => minuteur.abort(), 75000);
       try {
         const rep = await fetch(API + chemin, {
           headers: { "Content-Type": "application/json" },
+          signal: minuteur.signal,
           ...options
         });
-        const donnees = await rep.json();
-        serveurActif = true;
-        majEtat();
+        let donnees = {};
+        try { donnees = await rep.json(); } catch (e) { /* réponse sans contenu */ }
         return { ok: rep.ok, donnees };
-      } catch (erreur) {                        // pas de réseau / serveur éteint
-        serveurActif = false;
-        majEtat();
-        return null;
+      } catch (erreur) {
+        return null;                                            // pas de réseau / serveur endormi
+      } finally {
+        clearTimeout(arret);
       }
-    }
-
-    // Met à jour le badge en haut de la page
-    function majEtat() {
-      const badge = $("etat-serveur");
-      badge.textContent = serveurActif ? "Serveur connecté" : "Mode démo";
-      badge.classList.toggle("ok", serveurActif);
     }
 
     // Affiche un résultat dans une zone ; "niveau" = bon / moyen / danger (couleur du bord)
@@ -301,26 +414,31 @@
       }
     }
 
+    // Bloque un bouton pendant l'attente (évite les doubles clics)
+    function occupe(bouton, oui) { bouton.disabled = oui; }
+
     /* ---------- OUTIL 1 : vérifier un vendeur ---------- */
-    // Données de démo = les mêmes que dans schema.sql
-    const VENDEURS_DEMO = {
-      "+237690000001": { nom: "Kamer Tech Store",      certifie: true,  note: 4.8, nbVentes: 132 },
-      "+237677000002": { nom: "Douala Mode",           certifie: true,  note: 4.6, nbVentes: 87 },
-      "+237655000003": { nom: "Promo Express Gratuit", certifie: false, note: 2.1, nbVentes: 5 }
-    };
-
     $("btn-verifier").addEventListener("click", async () => {
-      const contact = $("contact-vendeur").value.replace(/\s+/g, ""); // enlève les espaces
-      if (!contact) return afficher($("res-vendeur"), "moyen", "Entrez un numéro de téléphone.");
+      const zone = $("res-vendeur");
+      const tel = normaliserTel($("contact-vendeur").value);
+      if (!tel) return afficher(zone, "moyen", MSG_NUMERO);
 
-      let v = null;
-      const rep = await appeler("/vendeurs/verifier?contact=" + encodeURIComponent(contact));
-      if (rep) v = rep.donnees.trouve ? rep.donnees : null;   // réponse du serveur Java
-      else     v = VENDEURS_DEMO[contact] || null;             // mode démo
+      afficher(zone, "moyen", MSG_ATTENTE);
+      occupe($("btn-verifier"), true);
+      const rep = await appeler("/vendeurs/verifier?contact=" + encodeURIComponent(tel));
+      occupe($("btn-verifier"), false);
+      if (!rep) return afficher(zone, "moyen", MSG_SERVEUR);
+      if (!rep.ok) return afficher(zone, "moyen", rep.donnees.message || "Erreur, réessayez.");
 
-      if (!v)            afficher($("res-vendeur"), "danger", "Vendeur inconnu. Ne payez pas à l'avance.");
-      else if (!v.certifie) afficher($("res-vendeur"), "moyen", `${v.nom} n'est pas certifié (note ${v.note}/5). Restez prudent.`);
-      else               afficher($("res-vendeur"), "bon", `${v.nom} est certifié : note ${v.note}/5, ${v.nbVentes} ventes.`);
+      const v = rep.donnees;
+      // v.signalements = nombre de signalements CONFIRMÉS par l'équipe (les signalements en attente ne comptent pas)
+      const n = v.signalements;
+      const texteSig = `${n} signalement${n > 1 ? "s" : ""} confirmé${n > 1 ? "s" : ""} par TrustPay pour ce numéro.`;
+      const alerte = n > 0 ? [texteSig] : [];
+      if (v.trouve && v.certifie)  afficher(zone, alerte.length ? "moyen" : "bon", `${v.nom} est certifié : note ${v.note}/5, ${v.nbVentes} ventes.`, alerte);
+      else if (v.trouve)           afficher(zone, "moyen", `${v.nom} n'est pas certifié. Restez prudent.`, alerte);
+      else if (n > 0)              afficher(zone, "danger", `Attention : ${texteSig} Ne payez rien à l'avance.`);
+      else                         afficher(zone, "danger", "Vendeur inconnu de TrustPay. Ne payez pas à l'avance.");
     });
 
     /* ---------- OUTIL 2 : analyser un message ---------- */
@@ -337,6 +455,7 @@
       [/ne dis à personne|ne le dis à personne|confidentiel/i,  15, "Demande de garder le secret"]
     ];
 
+    // Même calcul en local : sert de secours si le serveur est endormi
     function analyserLocal(texte) {
       let score = 0; const raisons = [];
       REGLES.forEach(([motif, points, raison]) => {
@@ -348,52 +467,100 @@
     }
 
     $("btn-analyser").addEventListener("click", async () => {
+      const zone = $("res-message");
       const texte = $("message").value.trim();
-      if (!texte) return afficher($("res-message"), "moyen", "Collez d'abord un message.");
+      if (!texte) return afficher(zone, "moyen", "Collez d'abord un message.");
 
+      occupe($("btn-analyser"), true);
       const rep = await appeler("/alertes/analyser", { method: "POST", body: JSON.stringify({ message: texte }) });
-      const r = rep ? rep.donnees : analyserLocal(texte);
+      occupe($("btn-analyser"), false);
+      const r = rep && rep.ok ? rep.donnees : analyserLocal(texte);
 
       const couleur = r.niveau === "ÉLEVÉ" ? "danger" : r.niveau === "MOYEN" ? "moyen" : "bon";
       const phrase = { "ÉLEVÉ": "Risque élevé : ne payez rien et ne répondez pas.",
                        "MOYEN": "Risque moyen : vérifiez l'expéditeur avant d'agir.",
                        "FAIBLE": "Risque faible : aucun signe classique d'arnaque détecté." }[r.niveau];
-      afficher($("res-message"), couleur, `${phrase} (score ${r.score}/100)`, r.raisons);
+      afficher(zone, couleur, `${phrase} (score ${r.score}/100)`, r.raisons);
     });
 
-    /* ---------- OUTIL 3 : paiement bloqué (4 étapes) ---------- */
-    let etape = 0;             // 0 = rien fait ; 1 à 4 = étapes validées
-    let idTransaction = null;  // numéro de la transaction côté serveur
-    const boutons = ["Créer la commande", "Payer (bloquer les fonds)", "Le vendeur livre", "J'ai reçu : libérer les fonds", "Recommencer"];
-    const messages = [
-      "", "Commande créée.", "15 000 FCFA sont bloqués : le vendeur ne les touche pas encore.",
-      "Le vendeur indique avoir livré. À vous de vérifier le colis.", "Fonds libérés vers le vendeur. Achat terminé."
-    ];
+    /* ---------- SIGNALER UN ARNAQUEUR ---------- */
+    $("form-signalement").addEventListener("submit", async (evt) => {
+      evt.preventDefault();                                   // empêche le rechargement de la page
+      const zone = $("res-signalement");
+      const numero = normaliserTel($("sig-numero").value);
+      if (!numero) return afficher(zone, "moyen", "Numéro de l'arnaqueur : " + MSG_NUMERO);
 
-    function dessinerEtapes() {
-      [...$("etapes").children].forEach((li, i) => {
-        li.className = i < etape ? "fait" : i === etape ? "actuel" : "";
-      });
-      $("btn-etape").textContent = boutons[etape];
-    }
+      const plateforme = $("sig-plateforme").value;
+      if (!plateforme) return afficher(zone, "moyen", "Choisissez où l'arnaque a eu lieu.");
 
-    $("btn-etape").addEventListener("click", async () => {
-      if (etape === 4) { etape = 0; idTransaction = null; $("res-paiement").className = "resultat"; $("res-paiement").textContent = ""; return dessinerEtapes(); }
+      const description = $("sig-description").value.trim();
+      if (description.length < 10) return afficher(zone, "moyen", "Décrivez ce qui s'est passé (10 caractères minimum).");
 
-      if (etape === 0) {   // création : le serveur enregistre la transaction dans MySQL
-        const rep = await appeler("/transactions", { method: "POST", body: JSON.stringify({
-          contactVendeur: "+237690000001", acheteur: "+237600000000", produit: "Écouteurs Bluetooth", montantFcfa: 15000 }) });
-        if (rep && rep.ok) idTransaction = rep.donnees.id;
-      } else if (idTransaction) {   // étapes suivantes : le serveur fait avancer le statut
-        await appeler("/transactions/" + idTransaction + "/avancer", { method: "POST" });
+      // Numéro du signalant : facultatif, mais s'il est rempli il doit être valide
+      let contact = null;
+      if ($("sig-contact").value.trim()) {
+        contact = normaliserTel($("sig-contact").value);
+        if (!contact) return afficher(zone, "moyen", "Votre numéro : " + MSG_NUMERO);
       }
-      etape++;
-      dessinerEtapes();
-      afficher($("res-paiement"), etape === 4 ? "bon" : "moyen", messages[etape]);
+      const montant = $("sig-montant").value ? Number($("sig-montant").value) : null;
+
+      afficher(zone, "moyen", MSG_ATTENTE);
+      occupe($("btn-signaler"), true);
+      const rep = await appeler("/signalements/arnaqueurs", { method: "POST", body: JSON.stringify({
+        numero, plateforme, description, montantFcfa: montant, contactDeclarant: contact }) });
+      occupe($("btn-signaler"), false);
+
+      if (!rep) return afficher(zone, "moyen", MSG_SERVEUR);
+      if (!rep.ok) return afficher(zone, "danger", rep.donnees.message || "Erreur, réessayez.");
+      $("form-signalement").reset();
+      afficher(zone, "bon", `${rep.donnees.message} Référence : n°${rep.donnees.reference}.`);
     });
 
-    dessinerEtapes();          // premier affichage des étapes
-    appeler("/vendeurs/verifier?contact=test");  // simple "ping" pour allumer le badge si Java tourne
+    /* ---------- CRÉER UN COMPTE ---------- */
+    const fenetre = $("fenetre-compte");
+    $("btn-compte").addEventListener("click", () => { $("res-compte").className = "resultat"; $("res-compte").textContent = ""; fenetre.showModal(); });
+    $("btn-fermer").addEventListener("click", () => fenetre.close());
+
+    $("form-compte").addEventListener("submit", async (evt) => {
+      evt.preventDefault();
+      const zone = $("res-compte");
+      const nom = $("cpt-nom").value.trim();
+      const telephone = normaliserTel($("cpt-tel").value);
+      const motDePasse = $("cpt-mdp").value;
+      const role = document.querySelector('input[name="role"]:checked').value;
+
+      if (nom.length < 2)               return afficher(zone, "moyen", "Entrez votre nom (2 caractères minimum).");
+      if (!telephone)                   return afficher(zone, "moyen", MSG_NUMERO);
+      if (motDePasse.length < 8)        return afficher(zone, "moyen", "Le mot de passe doit avoir 8 caractères minimum.");
+      if (motDePasse !== $("cpt-mdp2").value) return afficher(zone, "moyen", "Les deux mots de passe sont différents.");
+
+      afficher(zone, "moyen", MSG_ATTENTE);
+      occupe($("btn-creer"), true);
+      const rep = await appeler("/comptes/creer", { method: "POST", body: JSON.stringify({ nom, telephone, motDePasse, role }) });
+      occupe($("btn-creer"), false);
+
+      if (!rep) return afficher(zone, "moyen", MSG_SERVEUR);
+      if (!rep.ok) return afficher(zone, "danger", rep.donnees.message || "Erreur, réessayez.");
+      $("form-compte").reset();
+      const suite = rep.donnees.role === "VENDEUR"
+        ? " Votre profil vendeur sera certifié après vérification par TrustPay." : "";
+      afficher(zone, "bon", `Bienvenue ${rep.donnees.nom}, votre compte est créé.${suite}`);
+    });
+
+    /* ---------- FAIRE UN DON : bouton « Copier le numéro » ---------- */
+    document.querySelectorAll(".copier").forEach((bouton) => {
+      bouton.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(bouton.dataset.numero);   // copie dans le presse-papiers
+          bouton.textContent = "Copié ✓";
+        } catch (e) {
+          bouton.textContent = bouton.dataset.numero;                    // navigateur sans presse-papiers : on affiche le numéro
+        }
+        setTimeout(() => { bouton.textContent = "Copier le numéro"; }, 2500);
+      });
+    });
+
+    appeler("/sante");         // "ping" silencieux : réveille le serveur gratuit dès l'ouverture de la page
   </script>
 </body>
 </html>

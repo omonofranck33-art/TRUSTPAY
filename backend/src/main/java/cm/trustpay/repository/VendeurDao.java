@@ -21,4 +21,9 @@ public class VendeurDao {
             telephone
         ).stream().findFirst();                      // premier résultat s'il existe, sinon vide
     }
+
+    /** Crée un profil vendeur NON certifié (INSERT IGNORE : ne fait rien si le numéro existe déjà). */
+    public void creerNonCertifie(String nom, String telephone) {
+        jdbc.update("INSERT IGNORE INTO vendeurs (nom, telephone) VALUES (?, ?)", nom, telephone);
+    }
 }

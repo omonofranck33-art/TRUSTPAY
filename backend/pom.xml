@@ -33,6 +33,10 @@
       <artifactId>mysql-connector-j</artifactId>
       <scope>runtime</scope>
     </dependency>
+    <dependency> <!-- BCrypt : enregistre les mots de passe sous forme d'empreinte illisible -->
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-crypto</artifactId>
+    </dependency>
   </dependencies>
 
   <build>
