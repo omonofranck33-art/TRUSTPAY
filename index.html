@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<!-- Ligne 2 : on déclare que le document est du HTML5 -->
+<html lang="fr"> <!-- lang="fr" : la page est en français (utile pour les lecteurs d'écran et Google) -->
+<head>
+  <meta charset="UTF-8"> <!-- Accepte les accents : é, è, à… -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Rend la page adaptée au téléphone -->
+  <title>TrustPay – Votre bouclier anti-arnaque</title> <!-- Titre affiché dans l'onglet -->
+  <meta name="description" content="TrustPay bloque votre argent jusqu'à la livraison et vérifie les vendeurs.">
+
+  <!-- Polices Google : Barlow Condensed (titres, proche de l'affiche) + Manrope (texte) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== 1. VARIABLES : les couleurs du logo, définies une seule fois ===== */
+    :root {
+      --noir: #050505;            /* fond principal */
+      --nuit: #12090a;            /* fond des panneaux */
+      --rouge: #ff2b2b;           /* rouge néon du logo */
+      --rouge-sombre: #b30f14;    /* rouge des dégradés */
+      --blanc: #f4f4f6;           /* texte principal */
+      --gris: #b0a9aa;            /* texte secondaire */
+      --vert: #2ee66b;            /* vert du cadenas "sécurisé" de l'affiche */
+      --orange: #ffb020;          /* risque moyen */
+    }
+
+    /* ===== 2. BASE ===== */
+    * { box-sizing: border-box; margin: 0; padding: 0; } /* enlève les marges par défaut du navigateur */
+    html { scroll-behavior: smooth; }                    /* défilement doux vers les ancres (#essayer) */
+    body {
+      font-family: "Manrope", system-ui, sans-serif;
+      color: var(--blanc);
+      background-color: var(--noir);
+      /* Fond "circuit" : 2 séries de fines lignes rouges + une lueur rouge en haut */
+      background-image:
+        radial-gradient(ellipse at 50% -10%, rgba(255,43,43,.28), transparent 60%),
+        linear-gradient(rgba(255,43,43,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,43,43,.05) 1px, transparent 1px);
+      background-size: auto, 44px 44px, 44px 44px;
+      line-height: 1.6;
+    }
+    h1, h2, h3 { font-family: "Barlow Condensed", "Arial Narrow", sans-serif; line-height: 1.05; }
+    a { color: inherit; }
+    :focus-visible { outline: 3px solid var(--blanc); outline-offset: 3px; } /* focus clavier bien visible */
+    .conteneur { width: min(1080px, 100% - 2.5rem); margin-inline: auto; } /* colonne centrée */
+
+    /* ===== 3. EN-TÊTE ===== */
+    header { padding: 1rem 0; border-bottom: 1px solid rgba(255,43,43,.25); }
+    .barre { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    .marque { display: flex; align-items: center; gap: .7rem; text-decoration: none; font: 700 1.6rem "Barlow Condensed"; }
+    .marque img { width: 42px; height: 42px; border-radius: 12px; }
+    nav { display: flex; gap: 1.4rem; font-weight: 600; font-size: .95rem; }
+    nav a { text-decoration: none; color: var(--gris); }
+    nav a:hover { color: var(--blanc); }
+    .etat { font-size: .8rem; padding: .3rem .8rem; border-radius: 999px; border: 1px solid var(--gris); color: var(--gris); }
+    .etat.ok { border-color: var(--vert); color: var(--vert); }
+
+    /* ===== 4. HÉRO (première chose qu'on voit) ===== */
+    .hero { display: grid; grid-template-columns: 1.2fr .8fr; gap: 3rem; align-items: center; padding: 4.5rem 0 3.5rem; }
+    .hero h1 { font-size: clamp(3rem, 8vw, 5.6rem); font-weight: 700; }
+    .hero h1 span { display: block; color: var(--rouge); text-shadow: 0 0 28px rgba(255,43,43,.6); }
+    .hero p { max-width: 46ch; margin-top: 1.2rem; color: var(--gris); font-size: 1.1rem; }
+    .actions { display: flex; flex-wrap: wrap; gap: .9rem; margin-top: 2rem; }
+    .bouton {
+      display: inline-block; padding: .85rem 1.5rem; border-radius: 12px; border: 0; cursor: pointer;
+      font: 700 1rem "Manrope"; text-decoration: none; color: var(--blanc);
+      background: linear-gradient(135deg, var(--rouge), var(--rouge-sombre));
+      box-shadow: 0 0 22px rgba(255,43,43,.4);
+    }
+    .bouton:hover { filter: brightness(1.12); }
+    .bouton.contour { background: transparent; border: 1.5px solid var(--rouge); box-shadow: none; }
+    /* Le logo respire doucement : c'est LA seule animation automatique de la page */
+    .logo-hero { width: min(340px, 80%); margin-inline: auto; display: block; border-radius: 34px;
+                 animation: lueur 3.2s ease-in-out infinite; }
+    @keyframes lueur {
+      0%, 100% { box-shadow: 0 0 30px rgba(255,43,43,.35); }
+      50%      { box-shadow: 0 0 70px rgba(255,43,43,.75); }
+    }
+
+    /* ===== 5. LES 3 PILIERS (bande, pas trois cartes identiques) ===== */
+    .piliers { display: grid; grid-template-columns: repeat(3, 1fr); border-block: 1px solid rgba(255,43,43,.3); }
+    .pilier { padding: 2rem 1.6rem; }
+    .pilier + .pilier { border-left: 1px solid rgba(255,43,43,.3); } /* séparateur vertical */
+    .pilier svg { width: 38px; height: 38px; stroke: var(--rouge); fill: none; stroke-width: 1.8; margin-bottom: .8rem; }
+    .pilier h3 { font-size: 1.6rem; }
+    .pilier p { color: var(--gris); font-size: .95rem; margin-top: .4rem; }
+
+    /* ===== 6. ZONE D'ESSAI ===== */
+    section { padding: 4rem 0; }
+    section > .conteneur > h2 { font-size: clamp(2.2rem, 5vw, 3.2rem); }
+    .intro { color: var(--gris); max-width: 60ch; margin: .6rem 0 2.2rem; }
+    .outils { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1.5rem; }
+    .panneau {
+      background: var(--nuit); padding: 1.6rem; border-radius: 18px;
+      border: 1px solid rgba(255,43,43,.4); box-shadow: 0 0 26px rgba(255,43,43,.1);
+    }
+    .panneau h3 { font-size: 1.7rem; margin-bottom: .3rem; }
+    .panneau > p { color: var(--gris); font-size: .92rem; margin-bottom: 1rem; }
+    label { display: block; font-weight: 600; font-size: .88rem; margin-bottom: .35rem; }
+    input, textarea {
+      width: 100%; padding: .75rem .9rem; border-radius: 10px; margin-bottom: .9rem;
+      background: #000; color: var(--blanc); border: 1px solid #4a2325; font: inherit;
+    }
+    textarea { min-height: 110px; resize: vertical; }
+    .resultat { margin-top: 1rem; padding: .9rem 1rem; border-radius: 10px; border-left: 4px solid var(--gris);
+                background: rgba(255,255,255,.04); font-size: .92rem; }
+    .resultat.bon    { border-color: var(--vert);   }
+    .resultat.moyen  { border-color: var(--orange); }
+    .resultat.danger { border-color: var(--rouge);  }
+    .resultat ul { margin: .5rem 0 0 1.1rem; color: var(--gris); }
+    .resultat:empty { display: none; }
+
+    /* Étapes du paiement bloqué (ici c'est vraiment une suite : 1 → 4) */
+    ol.etapes { list-style: none; margin-bottom: 1rem; }
+    ol.etapes li { padding: .55rem .8rem; margin-bottom: .4rem; border-radius: 8px; color: var(--gris);
+                   border: 1px dashed #4a2325; counter-increment: e; }
+    ol.etapes li::before { content: counter(e) ". "; font-weight: 700; }
+    ol.etapes { counter-reset: e; }
+    ol.etapes li.fait   { color: var(--blanc); border: 1px solid var(--vert); }
+    ol.etapes li.actuel { color: var(--blanc); border: 1px solid var(--rouge); box-shadow: 0 0 14px rgba(255,43,43,.4); }
+
+    /* ===== 7. CONTACT + PIED DE PAGE ===== */
+    .contact { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: center; }
+    .contact img { width: 100%; max-width: 380px; border-radius: 18px; border: 1px solid rgba(255,43,43,.4); justify-self: center; }
+    .contact a.tel { display: block; font: 700 1.5rem "Barlow Condensed"; margin-top: .3rem; text-decoration: none; }
+    footer { padding: 1.6rem 0 2.2rem; text-align: center; color: var(--gris); font-size: .85rem; border-top: 1px solid rgba(255,43,43,.25); }
+
+    /* ===== 8. TÉLÉPHONE : on empile les colonnes ===== */
+    @media (max-width: 760px) {
+      .hero, .contact { grid-template-columns: 1fr; text-align: center; }
+      .hero p { margin-inline: auto; }
+      .actions { justify-content: center; }
+      .piliers { grid-template-columns: 1fr; }
+      .pilier + .pilier { border-left: 0; border-top: 1px solid rgba(255,43,43,.3); }
+      nav { display: none; }
+    }
+    /* Respect des personnes qui désactivent les animations dans leur système */
+    @media (prefers-reduced-motion: reduce) { .logo-hero { animation: none; } html { scroll-behavior: auto; } }
+  </style>
+</head>
+
+<body>
+  <!-- ========== EN-TÊTE ========== -->
+  <header>
+    <div class="conteneur barre">
+      <a class="marque" href="#"><img src="assets/logo.jpg" alt="Logo TrustPay : un hibou avec les lettres T et P">TrustPay</a>
+      <nav aria-label="Navigation principale">
+        <a href="#protection">Protection</a>
+        <a href="#essayer">Essayer</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <!-- Ce badge devient vert quand le serveur Java répond (voir le JavaScript en bas) -->
+      <span class="etat" id="etat-serveur" role="status">Mode démo</span>
+    </div>
+  </header>
+
+  <main>
+    <!-- ========== HÉRO ========== -->
+    <div class="conteneur hero">
+      <div>
+        <h1>Ne vous faites plus arnaquer.<span>Payez en toute confiance.</span></h1>
+        <p>TrustPay garde votre argent en sécurité jusqu'à ce que vous ayez reçu votre commande, et vous prévient quand un message ou un vendeur semble louche.</p>
+        <div class="actions">
+          <a class="bouton" href="#essayer">Vérifier un vendeur</a>
+          <a class="bouton contour" href="https://wa.me/237621784312" target="_blank" rel="noopener">Écrire sur WhatsApp</a>
+        </div>
+      </div>
+      <img class="logo-hero" src="assets/logo.jpg" alt="Logo TrustPay">
+    </div>
+
+    <!-- ========== 3 PILIERS ========== -->
+    <div class="conteneur piliers" id="protection">
+      <div class="pilier">
+        <!-- Icône bouclier coché dessinée en SVG (un dessin défini par des coordonnées) -->
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path d="M8.5 12l2.5 2.5L16 9.5"/></svg>
+        <h3>Vendeurs certifiés</h3>
+        <p>Chaque profil est contrôlé et noté avant de pouvoir recevoir un paiement.</p>
+      </div>
+      <div class="pilier">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>
+        <h3>Paiement bloqué jusqu'à livraison</h3>
+        <p>Le vendeur n'est payé qu'après votre confirmation de réception.</p>
+      </div>
+      <div class="pilier">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 17V11a6 6 0 0112 0v6l2 2H4l2-2z"/><path d="M10 21a2 2 0 004 0"/></svg>
+        <h3>Alerte arnaque instantanée</h3>
+        <p>Collez un message reçu : TrustPay repère les signes classiques d'une arnaque.</p>
+      </div>
+    </div>
+
+    <!-- ========== ZONE D'ESSAI (3 outils) ========== -->
+    <section id="essayer">
+      <div class="conteneur">
+        <h2>Essayez TrustPay maintenant</h2>
+        <p class="intro">Ces trois outils fonctionnent déjà. Avec le serveur Java allumé, ils utilisent la base de données ; sinon ils tournent en mode démo dans votre navigateur.</p>
+
+        <div class="outils">
+          <!-- Outil 1 : vérifier un vendeur -->
+          <div class="panneau">
+            <h3>Vérifier un vendeur</h3>
+            <p>Entrez son numéro de téléphone.</p>
+            <label for="contact-vendeur">Numéro du vendeur</label>
+            <input id="contact-vendeur" type="tel" placeholder="+237 690 000 001" autocomplete="off">
+            <button class="bouton" id="btn-verifier" type="button">Vérifier ce vendeur</button>
+            <div class="resultat" id="res-vendeur" aria-live="polite"></div>
+          </div>
+
+          <!-- Outil 2 : analyser un message -->
+          <div class="panneau">
+            <h3>Analyser un message</h3>
+            <p>Collez un SMS ou un message WhatsApp reçu.</p>
+            <label for="message">Message à analyser</label>
+            <textarea id="message" placeholder="Ex : Félicitations, vous avez gagné ! Envoyez vos frais de dossier d'abord."></textarea>
+            <button class="bouton" id="btn-analyser" type="button">Analyser le message</button>
+            <div class="resultat" id="res-message" aria-live="polite"></div>
+          </div>
+
+          <!-- Outil 3 : simulation du paiement bloqué -->
+          <div class="panneau">
+            <h3>Paiement bloqué</h3>
+            <p>Achat test : écouteurs Bluetooth, 15 000 FCFA chez Kamer Tech Store.</p>
+            <ol class="etapes" id="etapes">
+              <li>Commande créée</li>
+              <li>Paiement bloqué chez TrustPay</li>
+              <li>Le vendeur livre le colis</li>
+              <li>Vous confirmez : fonds libérés</li>
+            </ol>
+            <button class="bouton" id="btn-etape" type="button">Créer la commande</button>
+            <div class="resultat" id="res-paiement" aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== CONTACT ========== -->
+    <section id="contact">
+      <div class="conteneur contact">
+        <div>
+          <h2>Une question ? Un vendeur suspect ?</h2>
+          <p class="intro">Écrivez-nous sur WhatsApp, l'équipe répond rapidement.</p>
+          <a class="tel" href="https://wa.me/237621784312" target="_blank" rel="noopener">+237 621 784 312</a>
+          <a class="tel" href="https://wa.me/237658073180" target="_blank" rel="noopener">+237 658 073 180</a>
+        </div>
+        <img src="assets/affiche.jpg" alt="Affiche TrustPay : votre bouclier anti-arnaque">
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="conteneur">TrustPay · Paiements sécurisés · Protection 24/7 · www.trustpay.io</div>
+  </footer>
+
+  <script>
+    /* ===================================================================
+       JAVASCRIPT : rend la page vivante.
+       Principe : on lit ce que l'utilisateur écrit -> on demande au serveur
+       Java -> on affiche la réponse. Si le serveur est éteint, on utilise
+       les mêmes règles en local (mode démo).
+       =================================================================== */
+
+    const API = "http://localhost:8080/api";   // adresse du serveur Java
+    let serveurActif = false;                   // devient true si Java répond
+
+    // Raccourci : document.getElementById("x") -> $("x")
+    const $ = (id) => document.getElementById(id);
+
+    // Envoie une requête au serveur ; renvoie null si le serveur est injoignable
+    async function appeler(chemin, options = {}) {
+      try {
+        const rep = await fetch(API + chemin, {
+          headers: { "Content-Type": "application/json" },
+          ...options
+        });
+        const donnees = await rep.json();
+        serveurActif = true;
+        majEtat();
+        return { ok: rep.ok, donnees };
+      } catch (erreur) {                        // pas de réseau / serveur éteint
+        serveurActif = false;
+        majEtat();
+        return null;
+      }
+    }
+
+    // Met à jour le badge en haut de la page
+    function majEtat() {
+      const badge = $("etat-serveur");
+      badge.textContent = serveurActif ? "Serveur connecté" : "Mode démo";
+      badge.classList.toggle("ok", serveurActif);
+    }
+
+    // Affiche un résultat dans une zone ; "niveau" = bon / moyen / danger (couleur du bord)
+    // textContent (et non innerHTML) : évite qu'un texte piégé s'exécute comme du code
+    function afficher(zone, niveau, titre, liste = []) {
+      zone.className = "resultat " + niveau;
+      zone.textContent = titre;
+      if (liste.length) {
+        const ul = document.createElement("ul");
+        liste.forEach((t) => { const li = document.createElement("li"); li.textContent = t; ul.appendChild(li); });
+        zone.appendChild(ul);
+      }
+    }
+
+    /* ---------- OUTIL 1 : vérifier un vendeur ---------- */
+    // Données de démo = les mêmes que dans schema.sql
+    const VENDEURS_DEMO = {
+      "+237690000001": { nom: "Kamer Tech Store",      certifie: true,  note: 4.8, nbVentes: 132 },
+      "+237677000002": { nom: "Douala Mode",           certifie: true,  note: 4.6, nbVentes: 87 },
+      "+237655000003": { nom: "Promo Express Gratuit", certifie: false, note: 2.1, nbVentes: 5 }
+    };
+
+    $("btn-verifier").addEventListener("click", async () => {
+      const contact = $("contact-vendeur").value.replace(/\s+/g, ""); // enlève les espaces
+      if (!contact) return afficher($("res-vendeur"), "moyen", "Entrez un numéro de téléphone.");
+
+      let v = null;
+      const rep = await appeler("/vendeurs/verifier?contact=" + encodeURIComponent(contact));
+      if (rep) v = rep.donnees.trouve ? rep.donnees : null;   // réponse du serveur Java
+      else     v = VENDEURS_DEMO[contact] || null;             // mode démo
+
+      if (!v)            afficher($("res-vendeur"), "danger", "Vendeur inconnu. Ne payez pas à l'avance.");
+      else if (!v.certifie) afficher($("res-vendeur"), "moyen", `${v.nom} n'est pas certifié (note ${v.note}/5). Restez prudent.`);
+      else               afficher($("res-vendeur"), "bon", `${v.nom} est certifié : note ${v.note}/5, ${v.nbVentes} ventes.`);
+    });
+
+    /* ---------- OUTIL 2 : analyser un message ---------- */
+    // Chaque règle = [motif à trouver, points de risque, explication]
+    // (ce sont exactement les mêmes règles que dans AnalyseurArnaque.java)
+    const REGLES = [
+      [/western union|mtcn/i,                                   30, "Transfert via un service difficile à tracer"],
+      [/avance|d'abord|en premier|payer avant/i,                25, "Demande de paiement à l'avance"],
+      [/urgent|vite|dernière chance|aujourd'hui seulement/i,    15, "Pression sur l'urgence"],
+      [/\b(code|otp|mot de passe|pin)\b/i,                      35, "Demande d'un code ou d'un mot de passe"],
+      [/gagné|gagne|félicitations|loterie|cadeau/i,             30, "Promesse de gain ou de cadeau"],
+      [/https?:\/\/|bit\.ly|tinyurl/i,                          15, "Lien à vérifier avant de cliquer"],
+      [/frais de (douane|dossier|livraison)|débloquer/i,        25, "Frais demandés pour débloquer un colis ou un gain"],
+      [/ne dis à personne|ne le dis à personne|confidentiel/i,  15, "Demande de garder le secret"]
+    ];
+
+    function analyserLocal(texte) {
+      let score = 0; const raisons = [];
+      REGLES.forEach(([motif, points, raison]) => {
+        if (motif.test(texte)) { score += points; raisons.push(raison); }
+      });
+      score = Math.min(score, 100);                       // on plafonne à 100
+      const niveau = score >= 50 ? "ÉLEVÉ" : score >= 20 ? "MOYEN" : "FAIBLE";
+      return { score, niveau, raisons };
+    }
+
+    $("btn-analyser").addEventListener("click", async () => {
+      const texte = $("message").value.trim();
+      if (!texte) return afficher($("res-message"), "moyen", "Collez d'abord un message.");
+
+      const rep = await appeler("/alertes/analyser", { method: "POST", body: JSON.stringify({ message: texte }) });
+      const r = rep ? rep.donnees : analyserLocal(texte);
+
+      const couleur = r.niveau === "ÉLEVÉ" ? "danger" : r.niveau === "MOYEN" ? "moyen" : "bon";
+      const phrase = { "ÉLEVÉ": "Risque élevé : ne payez rien et ne répondez pas.",
+                       "MOYEN": "Risque moyen : vérifiez l'expéditeur avant d'agir.",
+                       "FAIBLE": "Risque faible : aucun signe classique d'arnaque détecté." }[r.niveau];
+      afficher($("res-message"), couleur, `${phrase} (score ${r.score}/100)`, r.raisons);
+    });
+
+    /* ---------- OUTIL 3 : paiement bloqué (4 étapes) ---------- */
+    let etape = 0;             // 0 = rien fait ; 1 à 4 = étapes validées
+    let idTransaction = null;  // numéro de la transaction côté serveur
+    const boutons = ["Créer la commande", "Payer (bloquer les fonds)", "Le vendeur livre", "J'ai reçu : libérer les fonds", "Recommencer"];
+    const messages = [
+      "", "Commande créée.", "15 000 FCFA sont bloqués : le vendeur ne les touche pas encore.",
+      "Le vendeur indique avoir livré. À vous de vérifier le colis.", "Fonds libérés vers le vendeur. Achat terminé."
+    ];
+
+    function dessinerEtapes() {
+      [...$("etapes").children].forEach((li, i) => {
+        li.className = i < etape ? "fait" : i === etape ? "actuel" : "";
+      });
+      $("btn-etape").textContent = boutons[etape];
+    }
+
+    $("btn-etape").addEventListener("click", async () => {
+      if (etape === 4) { etape = 0; idTransaction = null; $("res-paiement").className = "resultat"; $("res-paiement").textContent = ""; return dessinerEtapes(); }
+
+      if (etape === 0) {   // création : le serveur enregistre la transaction dans MySQL
+        const rep = await appeler("/transactions", { method: "POST", body: JSON.stringify({
+          contactVendeur: "+237690000001", acheteur: "+237600000000", produit: "Écouteurs Bluetooth", montantFcfa: 15000 }) });
+        if (rep && rep.ok) idTransaction = rep.donnees.id;
+      } else if (idTransaction) {   // étapes suivantes : le serveur fait avancer le statut
+        await appeler("/transactions/" + idTransaction + "/avancer", { method: "POST" });
+      }
+      etape++;
+      dessinerEtapes();
+      afficher($("res-paiement"), etape === 4 ? "bon" : "moyen", messages[etape]);
+    });
+
+    dessinerEtapes();          // premier affichage des étapes
+    appeler("/vendeurs/verifier?contact=test");  // simple "ping" pour allumer le badge si Java tourne
+  </script>
+</body>
+</html>
