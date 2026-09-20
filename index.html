@@ -1,49 +1,40 @@
 <!DOCTYPE html>
-<!-- Ligne 2 : on déclare que le document est du HTML5 -->
-<html lang="fr"> <!-- lang="fr" : la page est en français (utile pour les lecteurs d'écran et Google) -->
+<!-- On déclare que le document est du HTML5 -->
+<html lang="fr"> <!-- lang="fr" : page en français (lecteurs d'écran, Google) -->
 <head>
   <meta charset="UTF-8"> <!-- Accepte les accents : é, è, à… -->
-  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Rend la page adaptée au téléphone -->
-  <title>TrustPay – Stop aux arnaques en ligne</title> <!-- Titre affiché dans l'onglet -->
-  <meta name="description" content="Vérifiez un vendeur avant de payer, repérez les messages d'arnaque et signalez les arnaqueurs. Gratuit.">
-
-  <!-- Polices Google : Barlow Condensed (titres, proche de l'affiche) + Manrope (texte) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Adapte la page au téléphone -->
+  <title>TrustPay – Stop aux arnaques en ligne</title>
+  <meta name="description" content="Vérifiez un numéro avant de payer, signalez un arnaqueur, soutenez TrustPay.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    /* ===== 1. VARIABLES : les couleurs du logo, définies une seule fois ===== */
+    /* ===== 1. COULEURS DU LOGO (définies une seule fois) ===== */
     :root {
       color-scheme: dark;
-      --noir: #050505;            /* fond principal */
-      --nuit: #12090a;            /* fond des panneaux */
-      --rouge: #ff2b2b;           /* rouge néon du logo */
-      --rouge-sombre: #b30f14;    /* rouge des dégradés */
-      --blanc: #f4f4f6;           /* texte principal */
-      --gris: #b0a9aa;            /* texte secondaire */
-      --vert: #2ee66b;            /* vert du cadenas "sécurisé" de l'affiche */
-      --orange: #ffb020;          /* risque moyen */
+      --noir: #050505; --nuit: #12090a;
+      --rouge: #ff2b2b; --rouge-sombre: #b30f14;
+      --blanc: #f4f4f6; --gris: #b0a9aa;
+      --vert: #2ee66b; --orange: #ffb020;
     }
 
     /* ===== 2. BASE ===== */
-    * { box-sizing: border-box; margin: 0; padding: 0; } /* enlève les marges par défaut du navigateur */
-    html { scroll-behavior: smooth; }                    /* défilement doux vers les ancres (#essayer) */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
-      font-family: "Manrope", system-ui, sans-serif;
-      color: var(--blanc);
+      font-family: "Manrope", system-ui, sans-serif; color: var(--blanc); line-height: 1.6;
       background-color: var(--noir);
-      /* Fond "circuit" : 2 séries de fines lignes rouges + une lueur rouge en haut */
-      background-image:
+      background-image:                                  /* fond « circuit » : lueur rouge + fines lignes */
         radial-gradient(ellipse at 50% -10%, rgba(255,43,43,.28), transparent 60%),
         linear-gradient(rgba(255,43,43,.05) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,43,43,.05) 1px, transparent 1px);
       background-size: auto, 44px 44px, 44px 44px;
-      line-height: 1.6;
     }
     h1, h2, h3 { font-family: "Barlow Condensed", "Arial Narrow", sans-serif; line-height: 1.05; }
     a { color: inherit; }
-    :focus-visible { outline: 3px solid var(--blanc); outline-offset: 3px; } /* focus clavier bien visible */
-    .conteneur { width: min(1080px, 100% - 2.5rem); margin-inline: auto; } /* colonne centrée */
+    :focus-visible { outline: 3px solid var(--blanc); outline-offset: 3px; }
+    .conteneur { width: min(1080px, 100% - 2.5rem); margin-inline: auto; }
 
     /* ===== 3. EN-TÊTE ===== */
     header { padding: 1rem 0; border-bottom: 1px solid rgba(255,43,43,.25); }
@@ -58,47 +49,28 @@
     .bouton {
       display: inline-block; padding: .85rem 1.5rem; border-radius: 12px; border: 0; cursor: pointer;
       font: 700 1rem "Manrope"; text-decoration: none; color: var(--blanc);
-      background: linear-gradient(135deg, var(--rouge), var(--rouge-sombre));
-      box-shadow: 0 0 22px rgba(255,43,43,.4);
+      background: linear-gradient(135deg, var(--rouge), var(--rouge-sombre)); box-shadow: 0 0 22px rgba(255,43,43,.4);
     }
     .bouton:hover { filter: brightness(1.12); }
     .bouton.contour { background: transparent; border: 1.5px solid var(--rouge); box-shadow: none; }
     .bouton.petit { padding: .55rem 1.1rem; font-size: .9rem; }
     .bouton:disabled { opacity: .6; cursor: wait; }
 
-    /* ===== 5. HÉRO (première chose qu'on voit) ===== */
-    .hero { display: grid; grid-template-columns: 1.2fr .8fr; gap: 3rem; align-items: center; padding: 4.5rem 0 3.5rem; }
+    /* ===== 5. HÉRO ===== */
+    .hero { display: grid; grid-template-columns: 1.2fr .8fr; gap: 3rem; align-items: center; padding: 4.5rem 0 3rem; }
     .hero h1 { font-size: clamp(3rem, 8vw, 5.6rem); font-weight: 700; }
     .hero h1 span { display: block; color: var(--rouge); text-shadow: 0 0 28px rgba(255,43,43,.6); }
     .hero p { max-width: 46ch; margin-top: 1.2rem; color: var(--gris); font-size: 1.1rem; }
     .actions { display: flex; flex-wrap: wrap; gap: .9rem; margin-top: 2rem; }
-    /* Le logo respire doucement : c'est LA seule animation automatique de la page */
-    .logo-hero { width: min(340px, 80%); margin-inline: auto; display: block; border-radius: 34px;
-                 animation: lueur 3.2s ease-in-out infinite; }
-    @keyframes lueur {
-      0%, 100% { box-shadow: 0 0 30px rgba(255,43,43,.35); }
-      50%      { box-shadow: 0 0 70px rgba(255,43,43,.75); }
-    }
+    .logo-hero { width: min(320px, 80%); margin-inline: auto; display: block; border-radius: 34px; animation: lueur 3.2s ease-in-out infinite; }
+    @keyframes lueur { 0%, 100% { box-shadow: 0 0 30px rgba(255,43,43,.35); } 50% { box-shadow: 0 0 70px rgba(255,43,43,.75); } }
 
-    /* ===== 6. LES 3 PILIERS (bande, pas trois cartes identiques) ===== */
-    .piliers { display: grid; grid-template-columns: repeat(3, 1fr); border-block: 1px solid rgba(255,43,43,.3); }
-    .pilier { padding: 2rem 1.6rem; }
-    .pilier + .pilier { border-left: 1px solid rgba(255,43,43,.3); } /* séparateur vertical */
-    .pilier svg { width: 38px; height: 38px; stroke: var(--rouge); fill: none; stroke-width: 1.8; margin-bottom: .8rem; }
-    .pilier h3 { font-size: 1.6rem; }
-    .pilier p { color: var(--gris); font-size: .95rem; margin-top: .4rem; }
-
-    /* ===== 7. SECTIONS, PANNEAUX ET FORMULAIRES ===== */
-    section { padding: 4rem 0; }
-    section > .conteneur > h2 { font-size: clamp(2.2rem, 5vw, 3.2rem); }
-    .intro { color: var(--gris); max-width: 60ch; margin: .6rem 0 2.2rem; }
-    .outils { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1.5rem; }
-    .panneau {
-      background: var(--nuit); padding: 1.6rem; border-radius: 18px;
-      border: 1px solid rgba(255,43,43,.4); box-shadow: 0 0 26px rgba(255,43,43,.1);
-    }
-    .panneau h3 { font-size: 1.7rem; margin-bottom: .3rem; }
-    .panneau > p { color: var(--gris); font-size: .92rem; margin-bottom: 1rem; }
+    /* ===== 6. SECTIONS, PANNEAUX, FORMULAIRES ===== */
+    section { padding: 3.5rem 0; border-top: 1px solid rgba(255,43,43,.2); }
+    section h2 { font-size: clamp(2.2rem, 5vw, 3.2rem); }
+    .intro { color: var(--gris); max-width: 60ch; margin: .6rem 0 1.6rem; }
+    .deux { display: grid; grid-template-columns: .85fr 1.15fr; gap: 2.5rem; align-items: start; }
+    .panneau { background: var(--nuit); padding: 1.6rem; border-radius: 18px; border: 1px solid rgba(255,43,43,.4); box-shadow: 0 0 26px rgba(255,43,43,.1); }
     label { display: block; font-weight: 600; font-size: .88rem; margin-bottom: .35rem; }
     label small { font-weight: 400; color: var(--gris); }
     input, textarea, select {
@@ -106,54 +78,40 @@
       background: #000; color: var(--blanc); border: 1px solid #4a2325; font: inherit;
     }
     textarea { min-height: 110px; resize: vertical; }
-    .choix { display: flex; gap: 1.2rem; margin-bottom: .9rem; }
-    .choix label { display: flex; align-items: center; gap: .45rem; font-weight: 600; margin: 0; }
-    .choix input { width: auto; margin: 0; accent-color: var(--rouge); }
-    .resultat { margin-top: 1rem; padding: .9rem 1rem; border-radius: 10px; border-left: 4px solid var(--gris);
-                background: rgba(255,255,255,.04); font-size: .92rem; }
-    .resultat.bon    { border-color: var(--vert);   }
-    .resultat.moyen  { border-color: var(--orange); }
-    .resultat.danger { border-color: var(--rouge);  }
+    .colonnes { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1rem; }
+    .piege { position: absolute; left: -9999px; }              /* champ invisible : piège anti-robots */
+    .resultat { margin-top: 1rem; padding: .9rem 1rem; border-radius: 10px; border-left: 4px solid var(--gris); background: rgba(255,255,255,.04); font-size: .95rem; }
+    .resultat.bon { border-color: var(--vert); } .resultat.moyen { border-color: var(--orange); } .resultat.danger { border-color: var(--rouge); }
     .resultat ul { margin: .5rem 0 0 1.1rem; color: var(--gris); }
     .resultat:empty { display: none; }
 
-    /* Section « Signaler » : formulaire large sur deux colonnes */
-    .signaler { display: grid; grid-template-columns: .8fr 1.2fr; gap: 2.5rem; align-items: start; }
-    .signaler .colonnes { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1rem; }
+    /* Le parcours d'un signalement : 4 vraies étapes */
+    ol.parcours { list-style: none; counter-reset: p; }
+    ol.parcours li { counter-increment: p; position: relative; padding: .7rem 0 .7rem 3rem; color: var(--gris); }
+    ol.parcours li::before {
+      content: counter(p); position: absolute; left: 0; top: .55rem; width: 2rem; height: 2rem; border-radius: 50%;
+      display: grid; place-items: center; font-weight: 700; color: var(--blanc); border: 1.5px solid var(--rouge);
+    }
+    ol.parcours li strong { color: var(--blanc); display: block; }
 
-    /* Section « Faire un don » */
+    /* Dons */
     .dons { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; max-width: 640px; }
     .don { border-left: 5px solid var(--gris); }
-    .don.momo { border-left-color: #ffcc00; }   /* jaune MTN */
-    .don.om   { border-left-color: #ff7900; }   /* orange Orange */
-    .don .numero { font: 700 2.2rem "Barlow Condensed"; letter-spacing: .04em; margin: .2rem 0 1rem; color: var(--blanc); }
+    .don.momo { border-left-color: #ffcc00; }                  /* jaune MTN */
+    .don.om { border-left-color: #ff7900; }                    /* orange Orange */
+    .don h3 { font-size: 1.7rem; }
+    .don .numero { font: 700 2.2rem "Barlow Condensed"; letter-spacing: .04em; margin: .2rem 0 1rem; }
 
-    /* ===== 8. FENÊTRE « CRÉER UN COMPTE » ===== */
-    dialog { margin: auto; width: min(440px, 100% - 2rem); padding: 1.8rem; border-radius: 20px; color: var(--blanc);
-             background: var(--nuit); border: 1px solid var(--rouge); box-shadow: 0 0 50px rgba(255,43,43,.35); }
-    dialog::backdrop { background: rgba(0,0,0,.75); }   /* fond assombri derrière la fenêtre */
-    dialog h2 { font-size: 2rem; margin-bottom: .3rem; }
-    dialog .intro { margin: 0 0 1.2rem; font-size: .92rem; }
-    .rangee { display: flex; gap: .8rem; flex-wrap: wrap; }
+    footer { padding: 2rem 0; text-align: center; color: var(--gris); font-size: .9rem; border-top: 1px solid rgba(255,43,43,.25); }
+    footer a { color: var(--blanc); font-weight: 700; }
 
-    /* ===== 9. CONTACT + PIED DE PAGE ===== */
-    .contact { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: center; }
-    .contact img { width: 100%; max-width: 380px; border-radius: 18px; border: 1px solid rgba(255,43,43,.4); justify-self: center; }
-    .contact a.tel { display: block; font: 700 1.5rem "Barlow Condensed"; margin-top: .3rem; text-decoration: none; }
-    footer { padding: 1.6rem 0 2.2rem; text-align: center; color: var(--gris); font-size: .85rem; border-top: 1px solid rgba(255,43,43,.25); }
-
-    /* ===== 10. TÉLÉPHONE : on empile les colonnes ===== */
+    /* ===== 7. TÉLÉPHONE ===== */
     @media (max-width: 760px) {
-      .hero, .contact, .signaler { grid-template-columns: 1fr; text-align: center; }
-      .signaler { text-align: left; }
-      .signaler .colonnes { grid-template-columns: 1fr; }
-      .hero p { margin-inline: auto; }
-      .actions { justify-content: center; }
-      .piliers { grid-template-columns: 1fr; }
-      .pilier + .pilier { border-left: 0; border-top: 1px solid rgba(255,43,43,.3); }
+      .hero { grid-template-columns: 1fr; text-align: center; }
+      .hero p { margin-inline: auto; } .actions { justify-content: center; }
+      .deux { grid-template-columns: 1fr; } .colonnes { grid-template-columns: 1fr; }
       nav { display: none; }
     }
-    /* Respect des personnes qui désactivent les animations dans leur système */
     @media (prefers-reduced-motion: reduce) { .logo-hero { animation: none; } html { scroll-behavior: auto; } }
   </style>
 </head>
@@ -164,14 +122,10 @@
     <div class="conteneur barre">
       <a class="marque" href="#"><img src="assets/logo.jpg" alt="Logo TrustPay : un hibou avec les lettres T et P">TrustPay</a>
       <nav aria-label="Navigation principale">
-        <a href="#protection">Protection</a>
-        <a href="#essayer">Vérifier</a>
         <a href="#signaler">Signaler</a>
+        <a href="#verifier">Vérifier</a>
         <a href="#don">Faire un don</a>
-        <a href="#contact">Contact</a>
       </nav>
-      <!-- Ouvre la fenêtre d'inscription (voir <dialog> plus bas et le JavaScript) -->
-      <button class="bouton petit" id="btn-compte" type="button">Créer un compte</button>
     </div>
   </header>
 
@@ -180,89 +134,40 @@
     <div class="conteneur hero">
       <div>
         <h1>Stop aux arnaques en ligne.<span>Vérifiez avant de payer.</span></h1>
-        <p>Entrez le numéro d'un vendeur : TrustPay vous dit s'il est certifié ou déjà signalé, et vous aide à repérer un message d'arnaque. C'est gratuit.</p>
+        <p>Entrez le numéro d'un vendeur : TrustPay vous dit s'il est certifié ou déjà signalé comme arnaqueur. Vous avez été piégé ? Signalez-le pour protéger les autres. C'est gratuit.</p>
         <div class="actions">
-          <a class="bouton" href="#essayer">Vérifier un vendeur</a>
-          <a class="bouton contour" href="https://wa.me/237640818025" target="_blank" rel="noopener">Écrire sur WhatsApp</a>
+          <a class="bouton" href="#verifier">Vérifier un numéro</a>
+          <a class="bouton contour" href="#signaler">Signaler un arnaqueur</a>
         </div>
       </div>
       <img class="logo-hero" src="assets/logo.jpg" alt="Logo TrustPay">
     </div>
 
-    <!-- ========== 3 PILIERS ========== -->
-    <div class="conteneur piliers" id="protection">
-      <div class="pilier">
-        <!-- Icône bouclier coché dessinée en SVG (un dessin défini par des coordonnées) -->
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path d="M8.5 12l2.5 2.5L16 9.5"/></svg>
-        <h3>Vendeurs certifiés</h3>
-        <p>Chaque profil est contrôlé et noté avant d'être certifié par TrustPay.</p>
-      </div>
-      <div class="pilier">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v10"/><circle cx="12" cy="17.5" r="1.2"/><path d="M4 20h16L12 4 4 20z"/></svg>
-        <h3>Signalements vérifiés</h3>
-        <p>Les arnaques signalées sont contrôlées par notre équipe avant d'avertir les autres acheteurs.</p>
-      </div>
-      <div class="pilier">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 17V11a6 6 0 0112 0v6l2 2H4l2-2z"/><path d="M10 21a2 2 0 004 0"/></svg>
-        <h3>Alerte arnaque instantanée</h3>
-        <p>Collez un message reçu : TrustPay repère les signes classiques d'une arnaque.</p>
-      </div>
-    </div>
-
-    <!-- ========== OUTILS : vérifier, analyser, payer ========== -->
-    <section id="essayer">
-      <div class="conteneur">
-        <h2>Vérifiez avant de payer</h2>
-        <p class="intro">Deux outils pour vous protéger. Le premier appel peut prendre jusqu'à une minute, le temps que notre serveur se réveille.</p>
-
-        <div class="outils">
-          <!-- Outil 1 : vérifier un vendeur -->
-          <div class="panneau">
-            <h3>Vérifier un vendeur</h3>
-            <p>Entrez son numéro, avec ou sans espaces.</p>
-            <label for="contact-vendeur">Numéro du vendeur</label>
-            <input id="contact-vendeur" type="tel" placeholder="+237 690 000 001" autocomplete="off">
-            <button class="bouton" id="btn-verifier" type="button">Vérifier ce vendeur</button>
-            <div class="resultat" id="res-vendeur" aria-live="polite"></div>
-          </div>
-
-          <!-- Outil 2 : analyser un message -->
-          <div class="panneau">
-            <h3>Analyser un message</h3>
-            <p>Collez un SMS ou un message WhatsApp reçu.</p>
-            <label for="message">Message à analyser</label>
-            <textarea id="message" placeholder="Ex : Félicitations, vous avez gagné ! Envoyez d'abord les frais de dossier."></textarea>
-            <button class="bouton" id="btn-analyser" type="button">Analyser le message</button>
-            <div class="resultat" id="res-message" aria-live="polite"></div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ========== SIGNALER UN ARNAQUEUR ========== -->
+    <!-- ========== BLOC 1 : SIGNALER UN ARNAQUEUR ========== -->
     <section id="signaler">
-      <div class="conteneur signaler">
+      <div class="conteneur deux">
         <div>
           <h2>Signaler un arnaqueur</h2>
-          <p class="intro">Vous avez été piégé, ou vous avez repéré un faux vendeur ? Donnez-nous son numéro. Votre signalement est d'abord lu et vérifié par l'équipe TrustPay. Il n'avertit les autres acheteurs qu'une fois confirmé.</p>
+          <p class="intro">Rien n'est publié tout de suite : chaque signalement est d'abord vérifié par l'équipe TrustPay.</p>
+          <ol class="parcours">
+            <li><strong>Vous envoyez le signalement</strong>Le numéro, ce qui s'est passé.</li>
+            <li><strong>Il arrive chez TrustPay, « en attente »</strong>Personne d'autre ne le voit.</li>
+            <li><strong>Notre équipe vérifie</strong>Elle le confirme ou le rejette.</li>
+            <li><strong>Une fois confirmé</strong>Les acheteurs qui vérifient ce numéro sont avertis.</li>
+          </ol>
         </div>
         <div class="panneau">
           <form id="form-signalement" novalidate>
             <div class="colonnes">
               <div>
                 <label for="sig-numero">Numéro de l'arnaqueur</label>
-                <input id="sig-numero" type="tel" placeholder="+237 6XX XXX XXX" required autocomplete="off">
+                <input id="sig-numero" type="tel" placeholder="+237 6XX XXX XXX" autocomplete="off" required>
               </div>
               <div>
                 <label for="sig-plateforme">Où cela s'est-il passé ?</label>
                 <select id="sig-plateforme" required>
                   <option value="">Choisir…</option>
-                  <option>WhatsApp</option>
-                  <option>Facebook</option>
-                  <option>Telegram</option>
-                  <option>SMS ou appel</option>
-                  <option>Autre</option>
+                  <option>WhatsApp</option><option>Facebook</option><option>Telegram</option><option>SMS ou appel</option><option>Autre</option>
                 </select>
               </div>
             </div>
@@ -278,6 +183,8 @@
                 <input id="sig-contact" type="tel" placeholder="+237 6XX XXX XXX" autocomplete="tel">
               </div>
             </div>
+            <!-- Piège anti-robots : un humain ne voit pas ce champ, un robot le remplit -->
+            <input class="piege" id="sig-site" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
             <button class="bouton" id="btn-signaler" type="submit">Envoyer le signalement</button>
             <div class="resultat" id="res-signalement" aria-live="polite"></div>
           </form>
@@ -285,7 +192,23 @@
       </div>
     </section>
 
-    <!-- ========== FAIRE UN DON ========== -->
+    <!-- ========== BLOC 2 : VÉRIFIER UN NUMÉRO ========== -->
+    <section id="verifier">
+      <div class="conteneur deux">
+        <div>
+          <h2>Vérifier un numéro</h2>
+          <p class="intro">Avant de payer, tapez le numéro du vendeur, avec ou sans espaces. Vous saurez s'il est certifié ou s'il a des signalements confirmés.</p>
+        </div>
+        <div class="panneau">
+          <label for="contact-vendeur">Numéro à vérifier</label>
+          <input id="contact-vendeur" type="tel" placeholder="+237 690 000 001" autocomplete="off">
+          <button class="bouton" id="btn-verifier" type="button">Vérifier ce numéro</button>
+          <div class="resultat" id="res-vendeur" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== BLOC 3 : FAIRE UN DON ========== -->
     <section id="don">
       <div class="conteneur">
         <h2>Faire un don</h2>
@@ -294,7 +217,7 @@
           <div class="panneau don momo">
             <h3>MTN MoMo</h3>
             <p class="numero">680 803 841</p>
-            <!-- data-numero = le numéro brut que le bouton copie dans le presse-papiers -->
+            <!-- data-numero = le numéro brut que le bouton copie -->
             <button class="bouton contour petit copier" type="button" data-numero="680803841">Copier le numéro</button>
           </div>
           <div class="panneau don om">
@@ -305,105 +228,54 @@
         </div>
       </div>
     </section>
-
-    <!-- ========== CONTACT ========== -->
-    <section id="contact">
-      <div class="conteneur contact">
-        <div>
-          <h2>Une question ? Un vendeur suspect ?</h2>
-          <p class="intro">Écrivez-nous sur WhatsApp, l'équipe répond rapidement.</p>
-          <a class="tel" href="https://wa.me/237640818025" target="_blank" rel="noopener">+237 640 818 025</a>
-          <a class="tel" href="https://wa.me/237658073180" target="_blank" rel="noopener">+237 658 073 180</a>
-        </div>
-        <img src="assets/stop-arnaques.jpg" alt="Stop arnaques : ensemble contre les arnaques en ligne">
-      </div>
-    </section>
   </main>
 
   <footer>
-    <div class="conteneur">TrustPay · Vérification des vendeurs · Signalements · Alertes arnaque · www.trustpay.io</div>
+    <div class="conteneur">Une question ? <a href="https://wa.me/237640818025" target="_blank" rel="noopener">WhatsApp +237 640 818 025</a></div>
   </footer>
-
-  <!-- ========== FENÊTRE : CRÉER UN COMPTE ========== -->
-  <!-- <dialog> est une fenêtre native du navigateur : elle s'ouvre avec showModal() et se ferme avec close() -->
-  <dialog id="fenetre-compte" aria-labelledby="titre-compte">
-    <h2 id="titre-compte">Créer un compte</h2>
-    <p class="intro">Gratuit. Votre mot de passe est chiffré : personne, pas même nous, ne peut le lire.</p>
-    <form id="form-compte" novalidate>
-      <label for="cpt-nom">Nom complet</label>
-      <input id="cpt-nom" type="text" autocomplete="name" required>
-
-      <label for="cpt-tel">Numéro de téléphone</label>
-      <input id="cpt-tel" type="tel" placeholder="+237 6XX XXX XXX" autocomplete="tel" required>
-
-      <label for="cpt-mdp">Mot de passe <small>(8 caractères minimum)</small></label>
-      <input id="cpt-mdp" type="password" autocomplete="new-password" minlength="8" required>
-
-      <label for="cpt-mdp2">Répétez le mot de passe</label>
-      <input id="cpt-mdp2" type="password" autocomplete="new-password" required>
-
-      <div class="choix" role="radiogroup" aria-label="Type de compte">
-        <label><input type="radio" name="role" value="ACHETEUR" checked> J'achète</label>
-        <label><input type="radio" name="role" value="VENDEUR"> Je vends</label>
-      </div>
-
-      <div class="rangee">
-        <button class="bouton" id="btn-creer" type="submit">Créer mon compte</button>
-        <button class="bouton contour" id="btn-fermer" type="button">Fermer</button>
-      </div>
-      <div class="resultat" id="res-compte" aria-live="polite"></div>
-    </form>
-  </dialog>
 
   <script>
     /* ===================================================================
-       JAVASCRIPT : rend la page vivante.
-       Principe : on lit ce que l'utilisateur écrit -> on l'envoie au serveur Java
-       -> on affiche la réponse.
+       JAVASCRIPT : on lit ce que l'utilisateur écrit, on l'envoie au script Google
+       (relié à ton Google Sheet), puis on affiche la réponse.
        =================================================================== */
 
-    const API = "https://trustpay-x3b0.onrender.com/api";   // adresse de ton serveur Java sur Render
+    // >>> COLLE ICI L'ADRESSE DE TON SCRIPT GOOGLE (elle finit par /exec) — voir GUIDE.md étape 5 <<<
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbybAwbsStTJDayth2Ukx2SFZUmActx4GkdLQXAMmG_IoVKfu-ZJcSxc_DRWpkxzJSWMjQ/exec";
 
-    // Raccourci : document.getElementById("x") -> $("x")
     const $ = (id) => document.getElementById(id);
-
-    const MSG_ATTENTE  = "Un instant… le premier appel peut prendre jusqu'à une minute (le serveur se réveille).";
-    const MSG_SERVEUR  = "Impossible de joindre le serveur. Attendez une minute puis réessayez.";
-    const MSG_NUMERO   = "Numéro invalide : il faut 9 chiffres, par exemple +237 690 000 001.";
-
-    /* ---------- Outils communs ---------- */
+    const MSG_ATTENTE = "Un instant…";
+    const MSG_SERVEUR = "Impossible de joindre le service. Vérifiez votre connexion et réessayez.";
+    const MSG_NUMERO  = "Numéro invalide : il faut 9 chiffres, par exemple +237 690 000 001.";
 
     // Met TOUS les formats d'un numéro sous la même forme : +237XXXXXXXXX
     // "+237 691 000 001", "+237691000001", "691000001" et "00237691000001" donnent le même résultat.
     function normaliserTel(saisie) {
-      let c = saisie.replace(/\D/g, "");                         // ne garde que les chiffres
-      if (c.startsWith("00237")) c = c.slice(5);                 // 00237691... -> 691...
-      else if (c.length === 12 && c.startsWith("237")) c = c.slice(3);   // 237691... -> 691...
-      return /^[26]\d{8}$/.test(c) ? "+237" + c : null;          // 9 chiffres commençant par 6 (mobile) ou 2 (fixe)
+      let c = saisie.replace(/\D/g, "");                                    // ne garde que les chiffres
+      if (c.startsWith("00237")) c = c.slice(5);
+      else if (c.length === 12 && c.startsWith("237")) c = c.slice(3);
+      return /^[26]\d{8}$/.test(c) ? "+237" + c : null;
     }
 
-    // Envoie une requête au serveur ; renvoie null si le serveur est injoignable (attente max : 75 s)
-    async function appeler(chemin, options = {}) {
+    // Parle au script Google. Renvoie null si impossible. (Content-Type "text/plain" : évite un blocage du navigateur)
+    async function appeler(options, params) {
+      if (!SCRIPT_URL.startsWith("https://script.google.com/")) {
+        return { ok: false, message: "Le service n'est pas encore branché (adresse du script manquante)." };
+      }
       const minuteur = new AbortController();
-      const arret = setTimeout(() => minuteur.abort(), 75000);
+      const arret = setTimeout(() => minuteur.abort(), 40000);
       try {
-        const rep = await fetch(API + chemin, {
-          headers: { "Content-Type": "application/json" },
-          signal: minuteur.signal,
-          ...options
-        });
-        let donnees = {};
-        try { donnees = await rep.json(); } catch (e) { /* réponse sans contenu */ }
-        return { ok: rep.ok, donnees };
+        const url = options ? SCRIPT_URL : SCRIPT_URL + "?" + new URLSearchParams(params).toString();
+        const rep = await fetch(url, { ...(options || {}), signal: minuteur.signal });
+        return await rep.json();
       } catch (erreur) {
-        return null;                                            // pas de réseau / serveur endormi
+        return null;
       } finally {
         clearTimeout(arret);
       }
     }
 
-    // Affiche un résultat dans une zone ; "niveau" = bon / moyen / danger (couleur du bord)
-    // textContent (et non innerHTML) : évite qu'un texte piégé s'exécute comme du code
+    // Affiche un résultat (textContent : un texte piégé ne peut pas s'exécuter comme du code)
     function afficher(zone, niveau, titre, liste = []) {
       zone.className = "resultat " + niveau;
       zone.textContent = titre;
@@ -414,153 +286,73 @@
       }
     }
 
-    // Bloque un bouton pendant l'attente (évite les doubles clics)
-    function occupe(bouton, oui) { bouton.disabled = oui; }
-
-    /* ---------- OUTIL 1 : vérifier un vendeur ---------- */
+    /* ---------- BLOC 2 : VÉRIFIER UN NUMÉRO ---------- */
     $("btn-verifier").addEventListener("click", async () => {
       const zone = $("res-vendeur");
       const tel = normaliserTel($("contact-vendeur").value);
       if (!tel) return afficher(zone, "moyen", MSG_NUMERO);
 
       afficher(zone, "moyen", MSG_ATTENTE);
-      occupe($("btn-verifier"), true);
-      const rep = await appeler("/vendeurs/verifier?contact=" + encodeURIComponent(tel));
-      occupe($("btn-verifier"), false);
-      if (!rep) return afficher(zone, "moyen", MSG_SERVEUR);
-      if (!rep.ok) return afficher(zone, "moyen", rep.donnees.message || "Erreur, réessayez.");
+      $("btn-verifier").disabled = true;
+      const v = await appeler(null, { action: "verifier", numero: tel });
+      $("btn-verifier").disabled = false;
 
-      const v = rep.donnees;
-      // v.signalements = nombre de signalements CONFIRMÉS par l'équipe (les signalements en attente ne comptent pas)
+      if (!v) return afficher(zone, "moyen", MSG_SERVEUR);
+      if (!v.ok) return afficher(zone, "moyen", v.message || "Erreur, réessayez.");
+
+      // v.signalements = nombre de signalements CONFIRMÉS par l'équipe (ceux en attente ne comptent pas)
       const n = v.signalements;
       const texteSig = `${n} signalement${n > 1 ? "s" : ""} confirmé${n > 1 ? "s" : ""} par TrustPay pour ce numéro.`;
-      const alerte = n > 0 ? [texteSig] : [];
-      if (v.trouve && v.certifie)  afficher(zone, alerte.length ? "moyen" : "bon", `${v.nom} est certifié : note ${v.note}/5, ${v.nbVentes} ventes.`, alerte);
-      else if (v.trouve)           afficher(zone, "moyen", `${v.nom} n'est pas certifié. Restez prudent.`, alerte);
-      else if (n > 0)              afficher(zone, "danger", `Attention : ${texteSig} Ne payez rien à l'avance.`);
-      else                         afficher(zone, "danger", "Vendeur inconnu de TrustPay. Ne payez pas à l'avance.");
+      const note = v.note ? ` (note ${v.note}/5)` : "";
+
+      if (v.certifie && n === 0) afficher(zone, "bon", `${v.nom} est certifié par TrustPay${note}.`);
+      else if (v.certifie)       afficher(zone, "moyen", `${v.nom} est certifié, mais attention : ${texteSig}`);
+      else if (n > 0)            afficher(zone, "danger", `Attention : ${texteSig} Ne payez rien à l'avance.`);
+      else afficher(zone, "moyen", "Aucun signalement confirmé pour ce numéro. Cela ne prouve pas qu'il est fiable : ne payez jamais à l'avance à quelqu'un que vous ne connaissez pas.");
     });
 
-    /* ---------- OUTIL 2 : analyser un message ---------- */
-    // Chaque règle = [motif à trouver, points de risque, explication]
-    // (ce sont exactement les mêmes règles que dans AnalyseurArnaque.java)
-    const REGLES = [
-      [/western union|mtcn/i,                                   30, "Transfert via un service difficile à tracer"],
-      [/avance|d'abord|en premier|payer avant/i,                25, "Demande de paiement à l'avance"],
-      [/urgent|vite|dernière chance|aujourd'hui seulement/i,    15, "Pression sur l'urgence"],
-      [/\b(code|otp|mot de passe|pin)\b/i,                      35, "Demande d'un code ou d'un mot de passe"],
-      [/gagné|gagne|félicitations|loterie|cadeau/i,             30, "Promesse de gain ou de cadeau"],
-      [/https?:\/\/|bit\.ly|tinyurl/i,                          15, "Lien à vérifier avant de cliquer"],
-      [/frais de (douane|dossier|livraison)|débloquer/i,        25, "Frais demandés pour débloquer un colis ou un gain"],
-      [/ne dis à personne|ne le dis à personne|confidentiel/i,  15, "Demande de garder le secret"]
-    ];
-
-    // Même calcul en local : sert de secours si le serveur est endormi
-    function analyserLocal(texte) {
-      let score = 0; const raisons = [];
-      REGLES.forEach(([motif, points, raison]) => {
-        if (motif.test(texte)) { score += points; raisons.push(raison); }
-      });
-      score = Math.min(score, 100);                       // on plafonne à 100
-      const niveau = score >= 50 ? "ÉLEVÉ" : score >= 20 ? "MOYEN" : "FAIBLE";
-      return { score, niveau, raisons };
-    }
-
-    $("btn-analyser").addEventListener("click", async () => {
-      const zone = $("res-message");
-      const texte = $("message").value.trim();
-      if (!texte) return afficher(zone, "moyen", "Collez d'abord un message.");
-
-      occupe($("btn-analyser"), true);
-      const rep = await appeler("/alertes/analyser", { method: "POST", body: JSON.stringify({ message: texte }) });
-      occupe($("btn-analyser"), false);
-      const r = rep && rep.ok ? rep.donnees : analyserLocal(texte);
-
-      const couleur = r.niveau === "ÉLEVÉ" ? "danger" : r.niveau === "MOYEN" ? "moyen" : "bon";
-      const phrase = { "ÉLEVÉ": "Risque élevé : ne payez rien et ne répondez pas.",
-                       "MOYEN": "Risque moyen : vérifiez l'expéditeur avant d'agir.",
-                       "FAIBLE": "Risque faible : aucun signe classique d'arnaque détecté." }[r.niveau];
-      afficher(zone, couleur, `${phrase} (score ${r.score}/100)`, r.raisons);
-    });
-
-    /* ---------- SIGNALER UN ARNAQUEUR ---------- */
+    /* ---------- BLOC 1 : SIGNALER UN ARNAQUEUR ---------- */
     $("form-signalement").addEventListener("submit", async (evt) => {
-      evt.preventDefault();                                   // empêche le rechargement de la page
+      evt.preventDefault();                                                  // empêche le rechargement de la page
       const zone = $("res-signalement");
+
       const numero = normaliserTel($("sig-numero").value);
       if (!numero) return afficher(zone, "moyen", "Numéro de l'arnaqueur : " + MSG_NUMERO);
-
       const plateforme = $("sig-plateforme").value;
       if (!plateforme) return afficher(zone, "moyen", "Choisissez où l'arnaque a eu lieu.");
-
       const description = $("sig-description").value.trim();
       if (description.length < 10) return afficher(zone, "moyen", "Décrivez ce qui s'est passé (10 caractères minimum).");
 
-      // Numéro du signalant : facultatif, mais s'il est rempli il doit être valide
-      let contact = null;
+      let contact = "";
       if ($("sig-contact").value.trim()) {
         contact = normaliserTel($("sig-contact").value);
         if (!contact) return afficher(zone, "moyen", "Votre numéro : " + MSG_NUMERO);
       }
-      const montant = $("sig-montant").value ? Number($("sig-montant").value) : null;
+      const montant = $("sig-montant").value ? Number($("sig-montant").value) : "";
 
       afficher(zone, "moyen", MSG_ATTENTE);
-      occupe($("btn-signaler"), true);
-      const rep = await appeler("/signalements/arnaqueurs", { method: "POST", body: JSON.stringify({
-        numero, plateforme, description, montantFcfa: montant, contactDeclarant: contact }) });
-      occupe($("btn-signaler"), false);
+      $("btn-signaler").disabled = true;
+      const r = await appeler({
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ numero, plateforme, description, montant, contact, site: $("sig-site").value })
+      });
+      $("btn-signaler").disabled = false;
 
-      if (!rep) return afficher(zone, "moyen", MSG_SERVEUR);
-      if (!rep.ok) return afficher(zone, "danger", rep.donnees.message || "Erreur, réessayez.");
+      if (!r) return afficher(zone, "moyen", MSG_SERVEUR);
+      if (!r.ok) return afficher(zone, "danger", r.message || "Erreur, réessayez.");
       $("form-signalement").reset();
-      afficher(zone, "bon", `${rep.donnees.message} Référence : n°${rep.donnees.reference}.`);
+      afficher(zone, "bon", `Signalement reçu (n°${r.reference}). Il est en attente de vérification par l'équipe TrustPay : il ne sera publié qu'une fois confirmé.`);
     });
 
-    /* ---------- CRÉER UN COMPTE ---------- */
-    const fenetre = $("fenetre-compte");
-    $("btn-compte").addEventListener("click", () => { $("res-compte").className = "resultat"; $("res-compte").textContent = ""; fenetre.showModal(); });
-    $("btn-fermer").addEventListener("click", () => fenetre.close());
-
-    $("form-compte").addEventListener("submit", async (evt) => {
-      evt.preventDefault();
-      const zone = $("res-compte");
-      const nom = $("cpt-nom").value.trim();
-      const telephone = normaliserTel($("cpt-tel").value);
-      const motDePasse = $("cpt-mdp").value;
-      const role = document.querySelector('input[name="role"]:checked').value;
-
-      if (nom.length < 2)               return afficher(zone, "moyen", "Entrez votre nom (2 caractères minimum).");
-      if (!telephone)                   return afficher(zone, "moyen", MSG_NUMERO);
-      if (motDePasse.length < 8)        return afficher(zone, "moyen", "Le mot de passe doit avoir 8 caractères minimum.");
-      if (motDePasse !== $("cpt-mdp2").value) return afficher(zone, "moyen", "Les deux mots de passe sont différents.");
-
-      afficher(zone, "moyen", MSG_ATTENTE);
-      occupe($("btn-creer"), true);
-      const rep = await appeler("/comptes/creer", { method: "POST", body: JSON.stringify({ nom, telephone, motDePasse, role }) });
-      occupe($("btn-creer"), false);
-
-      if (!rep) return afficher(zone, "moyen", MSG_SERVEUR);
-      if (!rep.ok) return afficher(zone, "danger", rep.donnees.message || "Erreur, réessayez.");
-      $("form-compte").reset();
-      const suite = rep.donnees.role === "VENDEUR"
-        ? " Votre profil vendeur sera certifié après vérification par TrustPay." : "";
-      afficher(zone, "bon", `Bienvenue ${rep.donnees.nom}, votre compte est créé.${suite}`);
-    });
-
-    /* ---------- FAIRE UN DON : bouton « Copier le numéro » ---------- */
+    /* ---------- BLOC 3 : DON — bouton « Copier le numéro » ---------- */
     document.querySelectorAll(".copier").forEach((bouton) => {
       bouton.addEventListener("click", async () => {
-        try {
-          await navigator.clipboard.writeText(bouton.dataset.numero);   // copie dans le presse-papiers
-          bouton.textContent = "Copié ✓";
-        } catch (e) {
-          bouton.textContent = bouton.dataset.numero;                    // navigateur sans presse-papiers : on affiche le numéro
-        }
+        try { await navigator.clipboard.writeText(bouton.dataset.numero); bouton.textContent = "Copié ✓"; }
+        catch (e) { bouton.textContent = bouton.dataset.numero; }           // navigateur sans presse-papiers : on montre le numéro
         setTimeout(() => { bouton.textContent = "Copier le numéro"; }, 2500);
       });
     });
-
-    appeler("/sante");         // "ping" silencieux : réveille le serveur gratuit dès l'ouverture de la page
   </script>
 </body>
 </html>
